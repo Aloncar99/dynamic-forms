@@ -1,0 +1,73 @@
+<ng-container *ngIf="question() as q">
+  <div class="q-item" [class.q-item--active]="isActive()" (click)="setActive(q.id)">
+
+    <div class="q-head">
+      <span class="q-code">{{ q.code }}</span>
+
+      <!-- TITLE: preview (non-edit) OR edit input -->
+      <ng-container *ngIf="!isActive(); else editTitle">
+        <div class="q-text-preview">
+          {{ q.text.trim() ? q.text : 'Question' }}
+        </div>
+      </ng-container>
+
+      <!-- drag handle -->
+      <button
+        type="button"
+        class="q-drag"
+        cdkDragHandle
+        (click)="$event.stopPropagation()"
+        aria-label="Move question"
+      >
+        <mat-icon>drag_indicator</mat-icon>
+      </button>
+    </div>
+
+    <!-- PREVIEW BODY (samo kad nije aktivno) -->
+    <ng-container *ngIf="!isActive()">
+      <app-question-preview
+        class="q-preview-wrap"
+        [questionId]="q.id"
+      />
+    </ng-container>
+
+    <!-- EDIT TITLE -->
+    <ng-template #editTitle>
+      <mat-form-field appearance="fill" class="q-text" (click)="$event.stopPropagation()">
+        <input
+          matInput
+          [value]="q.text"
+          (input)="onQuestionTextChange(q.id, $any($event.target).value)"
+          placeholder="Question"
+        />
+      </mat-form-field>
+    </ng-template>
+
+    <!-- EDITOR BODY (samo kad je aktivno) -->
+    <ng-container *ngIf="isActive()">
+
+      <div class="q-body" (click)="$event.stopPropagation()">
+        <ng-container [ngSwitch]="q.type">
+          <ng-container *ngSwitchCase="'multiple_choice'">
+            <app-option-question-editor [questionId]="q.id" />
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'checkboxes'">
+            <app-option-question-editor [questionId]="q.id" />
+          </ng-container>
+
+          <ng-container *ngSwitchCase="'dropdown'">
+            <app-option-question-editor [questionId]="q.id" />
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <div class="hint">
+              Ovaj tip pitanja jos nema UI za opcije/logiku (dolazi u sljedecoj fazi).
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </ng-container>
+
+  </div>
+</ng-container>

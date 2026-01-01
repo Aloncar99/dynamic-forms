@@ -1,0 +1,150 @@
+:host {
+  --radius: 12px;
+  --shadow-1: 0 2px 10px rgba(0, 0, 0, 0.06);
+
+  --c-bg: #f3f4f6;
+  --c-card: #ffffff;
+  --c-text: #1f2937;
+  --c-text-medium: rgba(31, 41, 55, 0.7);
+
+  /* layout spacing */
+  --card-pad: 18px;
+  --fab-gap: 16px;
+
+  /* play fab sizes/colors */
+  --fab-size: 44px;
+  --fab-icon: 24px;
+  --c-primary: #2f5bea;
+  --c-primary-hover: #274fd0;
+
+  /* stacked accordion */
+  --stack-radius: 10px;
+
+  display: block;
+  background: var(--c-bg);
+  min-height: 100vh;
+}
+
+.page {
+  padding: 20px 22px 40px;
+}
+
+/* isti “layout width” za breadcrumb i card */
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+/* breadcrumb poravnat desno, u istom kontejneru kao card */
+.breadcrumbs {
+  font-size: 11px;
+  color: var(--c-text-medium);
+  margin: 6px 0 12px;
+  text-align: right;
+}
+
+/* main card */
+.card {
+  position: relative;
+  background: var(--c-card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-1);
+
+  /* rezervisi mjesto za play dugme gore */
+  padding:
+    calc(var(--card-pad) + var(--fab-size) + var(--fab-gap))
+    var(--card-pad)
+    var(--card-pad);
+}
+
+/* play fab */
+.play-fab {
+  position: absolute;
+  right: var(--card-pad);
+  top: var(--card-pad);
+  z-index: 20;
+
+  width: var(--fab-size);
+  height: var(--fab-size);
+  min-width: var(--fab-size);
+  min-height: var(--fab-size);
+
+  border-radius: 50% !important;
+  overflow: hidden;
+
+  background: var(--c-primary) !important;
+  --mdc-fab-container-color: var(--c-primary);
+  --mdc-fab-icon-color: #fff;
+  --mdc-fab-container-shape: 50%;
+
+  box-shadow: var(--shadow-1);
+}
+
+.play-fab:hover {
+  background: var(--c-primary-hover) !important;
+  --mdc-fab-container-color: var(--c-primary-hover);
+}
+
+.play-fab mat-icon {
+  color: #fff !important;
+  font-size: var(--fab-icon);
+  width: var(--fab-icon);
+  height: var(--fab-icon);
+  line-height: var(--fab-icon);
+  transform: translateX(1px);
+}
+
+/* focus ring */
+.play-fab:focus-visible {
+  outline: 3px solid rgba(47, 91, 234, 0.25);
+  outline-offset: 3px;
+  border-radius: 999px;
+}
+
+/* MDC wrapper/ripple fix (da ostane krug) */
+:host ::ng-deep .play-fab .mdc-fab,
+:host ::ng-deep .play-fab .mdc-fab__ripple {
+  border-radius: 50% !important;
+}
+
+/* =========================
+   Stacked accordion (sekcije)
+   ========================= */
+.sections {
+  display: block;
+  margin-top: 0;
+  background: #fff;
+  border-radius: var(--stack-radius);
+  overflow: hidden; /* kljuc: reze child radius */
+}
+
+/* svi paneli u stacku: bez razmaka, ravni rubovi + separator */
+:host ::ng-deep .sections app-section-panel .mat-expansion-panel {
+  margin: 0 !important;
+  border-radius: 0 !important;
+  border-bottom: 1px solid var(--c-base-2-darker) !important;
+}
+
+/* zadnji nema border-bottom */
+:host ::ng-deep .sections app-section-panel:last-child .mat-expansion-panel {
+  border-bottom: 0 !important;
+}
+
+/* samo prvi ima gornji radius */
+:host ::ng-deep .sections app-section-panel:first-child .mat-expansion-panel-header {
+  border-top-left-radius: var(--stack-radius) !important;
+  border-top-right-radius: var(--stack-radius) !important;
+}
+
+/* samo zadnji ima donji radius na headeru (kad je zatvoren) */
+:host ::ng-deep .sections app-section-panel:last-child .mat-expansion-panel-header {
+  border-bottom-left-radius: var(--stack-radius) !important;
+  border-bottom-right-radius: var(--stack-radius) !important;
+}
+
+/* kad je zadnji OTVOREN, radius treba na content wrapper */
+:host ::ng-deep .sections app-section-panel:last-child .mat-expansion-panel-content {
+  border-bottom-left-radius: var(--stack-radius) !important;
+  border-bottom-right-radius: var(--stack-radius) !important;
+  overflow: hidden;
+}

@@ -1,0 +1,27 @@
+<mat-toolbar class="topbar">
+  <button mat-icon-button class="menu-btn" (click)="toggleMenu()" aria-label="Menu">
+    <mat-icon *ngIf="!isMenuOpen()">menu</mat-icon>
+
+    <img
+      *ngIf="isMenuOpen()"
+      class="menu-open-icon"
+      src="assets/icons/menu.svg"
+      alt=""
+      aria-hidden="true"
+    />
+  </button>
+
+  <span class="spacer"></span>
+
+  <div class="right">
+    <button mat-icon-button class="icon-btn" aria-label="Notifications">
+      <mat-icon>notifications_active</mat-icon>
+    </button>
+
+    <button mat-icon-button class="icon-btn" aria-label="Info">
+      <mat-icon>info</mat-icon>
+    </button>
+
+    <div class="lang-btn" aria-label="Language">HR</div>
+  </div>
+</mat-toolbar>

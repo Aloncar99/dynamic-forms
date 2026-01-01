@@ -1,0 +1,79 @@
+<!-- floating tools -->
+<div class="section-tools" (click)="$event.stopPropagation()">
+  <!-- PLUS -->
+  <button
+    mat-mini-fab
+    class="tool-fab tool-fab--plus"
+    (click)="toggleAddMenu($event)"
+    aria-label="Add"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+
+  <div class="tools-divider"></div>
+
+  <button mat-icon-button class="tool-ico" aria-label="Duplicate" disabled>
+    <mat-icon>content_copy</mat-icon>
+  </button>
+
+  <button mat-icon-button class="tool-ico" aria-label="Logic" disabled>
+    <mat-icon>share</mat-icon>
+  </button>
+</div>
+
+<!-- ✅ CUSTOM ADD MENU -->
+<div
+  class="add-menu-overlay"
+  *ngIf="addMenuOpen"
+  [style.top.px]="addMenuPos.y"
+  [style.left.px]="addMenuPos.x"
+  (click)="$event.stopPropagation()"
+>
+  <button class="add-menu-item" type="button" (click)="onAddSection()">
+    <mat-icon>apps</mat-icon>
+    <span>New section</span>
+  </button>
+
+  <div class="add-menu-divider"></div>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('short_text')">
+    <mat-icon>short_text</mat-icon>
+    <span>Short text</span>
+  </button>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('long_text')">
+    <mat-icon>notes</mat-icon>
+    <span>Long text</span>
+  </button>
+
+  <div class="add-menu-divider"></div>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('multiple_choice')">
+    <mat-icon>radio_button_checked</mat-icon>
+    <span>Multiple choice</span>
+  </button>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('checkboxes')">
+    <mat-icon>check_box</mat-icon>
+    <span>Check-boxes</span>
+  </button>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('dropdown')">
+    <mat-icon>arrow_drop_down_circle</mat-icon>
+    <span>Drop-down</span>
+  </button>
+
+  <div class="add-menu-divider"></div>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('date')">
+    <mat-icon>event</mat-icon>
+    <span>Date</span>
+  </button>
+
+  <div class="add-menu-divider"></div>
+
+  <button class="add-menu-item" type="button" (click)="onAddQuestion('document')">
+    <mat-icon>description</mat-icon>
+    <span>Document</span>
+  </button>
+</div>

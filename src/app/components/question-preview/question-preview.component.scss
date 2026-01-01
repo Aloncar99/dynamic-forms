@@ -1,0 +1,118 @@
+:host {
+  display: block;
+}
+
+.q-preview {
+  margin-left: 20px;
+  margin-top: 6px;
+}
+
+/* list layout */
+.pv-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.pv-item {
+  user-select: none;
+}
+
+.pv-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pv-text {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.2;
+  color: var(--c-text-dark);
+}
+
+.pv-pts {
+  font-size: 12px;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 8px;
+  background: var(--c-base-darker);
+  color: var(--c-text-medium);
+}
+
+/* inputs underline look (preview) */
+.pv-field {
+  width: 100%;
+  max-width: 820px;
+}
+
+/* Material form-field “underline” tuning */
+:host ::ng-deep .pv-field .mat-mdc-text-field-wrapper {
+  background: transparent !important;
+  padding: 0 !important;
+}
+:host ::ng-deep .pv-field .mat-mdc-form-field-infix {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  min-height: 30px;
+}
+:host ::ng-deep .pv-field .mdc-line-ripple::before {
+  border-bottom-color: rgba(0, 0, 0, 0.45) !important;
+  opacity: 0.7;
+}
+
+/* ====== COLOR TOKENS (MDC) ======
+   Bitno: koristimo *-icon-color / *-checkmark-color
+   (ovo rjesava transparent bug kod checked red) */
+
+/* default (blue) */
+.pv-checkbox,
+.pv-radio {
+  --mdc-checkbox-unselected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-hover-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-focus-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-pressed-icon-color: var(--c-accent-1);
+
+  --mdc-radio-unselected-icon-color: var(--c-accent-1);
+  --mdc-radio-selected-icon-color: var(--c-accent-1);
+  --mdc-radio-selected-hover-icon-color: var(--c-accent-1);
+  --mdc-radio-selected-focus-icon-color: var(--c-accent-1);
+  --mdc-radio-selected-pressed-icon-color: var(--c-accent-1);
+}
+
+/* red-flag override (✅ radi i checked i hover i focus) */
+.pv-checkbox.is-red,
+.pv-radio.is-red {
+  --mdc-checkbox-unselected-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-selected-hover-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-focus-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-pressed-icon-color: var(--c-warn);
+
+  --mdc-radio-unselected-icon-color: var(--c-warn);
+  --mdc-radio-selected-icon-color: var(--c-warn);
+  --mdc-radio-selected-hover-icon-color: var(--c-warn);
+  --mdc-radio-selected-focus-icon-color: var(--c-warn);
+  --mdc-radio-selected-pressed-icon-color: var(--c-warn);
+}
+
+/* spacing da checkbox/radio ikona i tekst budu kao na figmi */
+:host ::ng-deep .pv-checkbox .mdc-form-field,
+:host ::ng-deep .pv-radio .mdc-form-field {
+  gap: 12px;
+}
+
+/* hint + doc */
+.pv-hint {
+  color: var(--c-text-medium);
+  font-size: 12px;
+  padding: 8px 0;
+}
+
+.pv-doc {
+  border-radius: 10px;
+}

@@ -1,0 +1,126 @@
+:host {
+  display: block;
+}
+
+/* EXPANSION PANEL (flat) */
+:host ::ng-deep .section-panel.mat-expansion-panel {
+  position: relative;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent;
+}
+
+:host ::ng-deep .section-panel .mat-expansion-panel-header::after {
+  display: none !important;
+}
+
+/* da floating tools ne budu odsječeni */
+:host ::ng-deep .section-panel .mat-expansion-panel-content,
+:host ::ng-deep .section-panel .mat-expansion-panel-body {
+  overflow: visible !important;
+}
+
+/* HEADER */
+:host ::ng-deep .section-panel .mat-expansion-panel-header {
+  background: var(--c-base-2) !important;
+  height: 44px;
+  padding: 0 14px;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  transition: background 120ms ease;
+}
+
+:host ::ng-deep .section-panel .mat-expansion-panel-header:hover {
+  background: var(--c-base-2-darker) !important;
+}
+
+:host ::ng-deep .section-panel .mat-expansion-panel-header.cdk-program-focused,
+:host ::ng-deep .section-panel .mat-expansion-panel-header.cdk-keyboard-focused {
+  outline: none !important;
+}
+
+.section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.section-pill {
+  background: var(--c-accent-1);
+  color: #fff;
+  font-weight: 700;
+  font-size: 11px;
+  padding: 4px 10px;
+  min-width: 56px;
+  text-align: center;
+}
+
+.section-title {
+  color: #00002E;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+/* BODY */
+.section-body {
+  padding: 14px 18px 18px;
+  padding-right: 72px;
+}
+
+.empty-hint {
+  color: var(--c-text-medium);
+  font-size: 12px;
+  padding: 10px 0;
+}
+///* gura tools skroz desno u headeru */
+//.header-spacer {
+//  flex: 1 1 auto;
+//}
+//
+///* tools vise nisu floating */
+//.section-tools {
+//  position: static;         /* KLJUC */
+//  display: flex;
+//  align-items: center;
+//}
+//
+///* mat header content da bude flex (nekad Material to vec ima, ali ovo “zakuca”) */
+//:host ::ng-deep .section-panel .mat-expansion-panel-header .mat-content {
+//  display: flex;
+//  align-items: center;
+//  width: 100%;
+//}
+//
+///* da header ne sijece stvari (za svaki slucaj) */
+//:host ::ng-deep .section-panel .mat-expansion-panel-header {
+//  overflow: visible;
+//}
+
+/* kad je sekcija prazna, da tool-card stane u panel (jer je absolute) */
+.section-body.is-empty {
+  min-height: 230px; /* po potrebi 210-260 */
+}
+
+
+//NOVO
+.questions-list {
+  display: block;
+}
+
+.question-row {
+  position: relative;
+}
+
+/* dok vuces */
+:host ::ng-deep .cdk-drag-preview {
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  border-radius: 12px;
+  background: #fff;
+}
+
+:host ::ng-deep .cdk-drag-placeholder {
+  opacity: 0.2;
+}

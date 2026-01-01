@@ -1,0 +1,92 @@
+<ng-container *ngIf="question() as q">
+  <div class="q-preview" (click)="$event.stopPropagation()">
+    <ng-container [ngSwitch]="q.type">
+
+      <!-- short text -->
+      <ng-container *ngSwitchCase="'short_text'">
+        <mat-form-field appearance="fill" class="pv-field">
+          <input matInput placeholder="Answer" />
+        </mat-form-field>
+      </ng-container>
+
+      <!-- long text -->
+      <ng-container *ngSwitchCase="'long_text'">
+        <mat-form-field appearance="fill" class="pv-field">
+          <textarea matInput rows="2" placeholder="Answer"></textarea>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- date -->
+      <ng-container *ngSwitchCase="'date'">
+        <mat-form-field appearance="fill" class="pv-field">
+          <input matInput placeholder="Date" />
+        </mat-form-field>
+      </ng-container>
+
+      <!-- multiple choice (radio) -->
+      <ng-container *ngSwitchCase="'multiple_choice'">
+        <mat-radio-group
+          class="pv-list pv-radio-group"
+          [value]="selectedRadioId()"
+          (change)="selectedRadioId.set($any($event.value))"
+        >
+          <mat-radio-button
+            class="pv-item pv-radio"
+            *ngFor="let o of opts(); trackBy: trackById"
+            [class.is-red]="o.redFlag"
+            [value]="o.id"
+            (click)="$event.stopPropagation()"
+          >
+            <span class="pv-line">
+              <span class="pv-text">{{ o.text }}</span>
+              <span class="pv-pts" *ngIf="o.points !== null">{{ o.points }}pt</span>
+            </span>
+          </mat-radio-button>
+        </mat-radio-group>
+      </ng-container>
+
+      <!-- checkboxes -->
+      <ng-container *ngSwitchCase="'checkboxes'">
+        <div class="pv-list">
+          <mat-checkbox
+            class="pv-item pv-checkbox"
+            *ngFor="let o of opts(); trackBy: trackById"
+            [class.is-red]="o.redFlag"
+            [checked]="selectedCheckboxIds().has(o.id)"
+            (change)="onToggleCheckbox(o.id)"
+            (click)="$event.stopPropagation()"
+          >
+            <span class="pv-line">
+              <span class="pv-text">{{ o.text }}</span>
+              <span class="pv-pts" *ngIf="o.points !== null">{{ o.points }}pt</span>
+            </span>
+          </mat-checkbox>
+        </div>
+      </ng-container>
+
+      <!-- dropdown -->
+      <ng-container *ngSwitchCase="'dropdown'">
+        <mat-form-field appearance="fill" class="pv-field">
+          <mat-select placeholder="Select">
+            <mat-option *ngFor="let o of opts(); trackBy: trackById" [value]="o.id">
+              {{ o.text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </ng-container>
+
+      <!-- document -->
+      <ng-container *ngSwitchCase="'document'">
+        <button mat-stroked-button type="button" class="pv-doc">
+          <mat-icon>attach_file</mat-icon>
+          Upload document
+        </button>
+      </ng-container>
+
+      <ng-container *ngSwitchDefault>
+        <div class="pv-hint">Preview nije definisan za ovaj tip.</div>
+      </ng-container>
+
+    </ng-container>
+  </div>
+</ng-container>

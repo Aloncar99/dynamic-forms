@@ -1,0 +1,53 @@
+<ng-container *ngIf="section() as s">
+  <mat-expansion-panel
+    class="section-panel"
+  >
+    <mat-expansion-panel-header class="section-header">
+      <div class="section-header-left">
+        <span class="section-pill">{{ s.code }}</span>
+        <span class="section-title">{{ s.title }}</span>
+      </div>
+
+      <span class="header-spacer"></span>
+
+      <!-- TOOLS U HEADERU -->
+      <div class="section-tools" (click)="$event.stopPropagation()">
+        <app-section-tools-menu
+          [sectionId]="s.id"
+          (activateSection)="setActiveSection($event)"
+          (addSectionAfter)="addSectionFromMenu($event)"
+          (addQuestion)="addQuestionToSection($event.sectionId, $event.type)"
+        />
+      </div>
+    </mat-expansion-panel-header>
+
+    <div class="section-body" [class.is-empty]="!s.questionIds.length">
+      <ng-container *ngIf="s.questionIds?.length; else noQuestions">
+
+        <div
+          class="questions-list"
+          cdkDropList
+          [cdkDropListData]="s.questionIds"
+          (cdkDropListDropped)="onQuestionsDropped(s.id, $event)"
+        >
+          <div
+            class="question-drag-row"
+            *ngFor="let qid of s.questionIds; trackBy: trackByString"
+            cdkDrag
+            [cdkDragData]="qid"
+          >
+            <app-question-item [questionId]="qid"></app-question-item>
+          </div>
+        </div>
+
+      </ng-container>
+
+      <ng-template #noQuestions>
+        <div class="empty-hint">
+          Sekcija trenutno nema pitanja. Dodaj pitanje kroz (+) meni.
+        </div>
+      </ng-template>
+    </div>
+
+  </mat-expansion-panel>
+</ng-container>

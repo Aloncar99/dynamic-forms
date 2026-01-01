@@ -1,0 +1,229 @@
+:host {
+  display: block;
+}
+
+/* ============================
+   CARD
+   ============================ */
+.q-admin-card {
+  margin-top: 12px;
+  background: var(--c-base);
+  border-radius: 10px;
+  padding: 14px 16px 18px;
+}
+
+/* ============================
+   GRID (header + row)
+   ============================ */
+.opt-head,
+.opt-row {
+  display: grid;
+  grid-template-columns: 34px 1.6fr 0.9fr 1.2fr 140px 34px;
+  align-items: center;
+  column-gap: 18px;
+}
+
+.opt-head {
+  align-items: end;
+  padding: 4px 0 10px;
+}
+
+.opt-h {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(0, 0, 46, 0.55);
+}
+
+.opt-h-right {
+  text-align: left;
+}
+
+/* ============================
+   ROWS
+   ============================ */
+.opt-row {
+  padding: 10px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.opt-row:first-of-type {
+  border-top: 0;
+}
+
+/* center left checkbox + trash */
+.opt-check,
+.opt-trash {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.opt-trash {
+  color: rgba(0, 0, 46, 0.55);
+}
+
+/* ============================
+   Add option
+   ============================ */
+.add-option {
+  margin-top: 14px;
+  padding-left: 0;
+  font-weight: 600;
+  color: var(--c-text-dark);
+  justify-content: flex-start;
+}
+
+.add-ic {
+  color: var(--c-accent-1);
+  margin-right: 10px;
+}
+
+/* ============================
+   EMPTY
+   ============================ */
+.empty-hint {
+  padding: 10px 0;
+  color: rgba(0, 0, 46, 0.55);
+  font-size: 13px;
+}
+
+/* ============================
+   LOGIC block
+   ============================ */
+.logic {
+  margin-top: 22px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.logic-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--c-text-dark);
+  margin-bottom: 12px;
+}
+
+.logic-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 900px;
+  margin-bottom: 18px;
+}
+
+.logic-label {
+  font-size: 12px;
+  color: var(--c-text-dark);
+  opacity: 0.85;
+}
+
+.logic-field {
+  width: 260px;
+}
+
+/* ako ti treba bas “small”, ostavi ovako */
+.logic-field.small {
+  width: 360px;
+}
+
+.logic-trash {
+  color: rgba(0, 0, 46, 0.55);
+}
+
+/* ✅ novi row za + (da bude u ravnini sa zadnjim uslovom) */
+.logic-add-row {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  max-width: 900px;
+
+  .logic-add-spacer {
+    flex: 1;
+  }
+
+  /* kad nema nijednog rule-a, spusti ga malo da ne bude na gornjoj crti */
+  &.is-empty {
+    padding-top: 12px;
+  }
+}
+
+/* “placeholder” labeli da ne smetaju vizualno */
+.logic-label.ghost {
+  opacity: 0;
+}
+
+/* ✅ + dugme krug */
+.logic-add {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  min-height: 34px;
+  background: var(--c-primary);
+  color: #fff;
+  border-radius: 50%;
+}
+
+/* ============================
+   ✅ MATERIAL CHECKBOX COLORS
+   ============================ */
+
+/* smanji state-layer da ne izgleda masno */
+:host ::ng-deep .mat-mdc-checkbox {
+  --mdc-checkbox-state-layer-size: 30px;
+}
+
+/* 1) LEFT checkbox column = BLUE (always) */
+:host ::ng-deep .opt-check.mat-mdc-checkbox {
+  --mdc-checkbox-unselected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-checkmark-color: #fff;
+
+  --mdc-checkbox-state-layer-color: var(--c-accent-1);
+
+  /* FIX: da ne “pocrni” na click/focus/pressed */
+  --mdc-checkbox-unselected-focus-icon-color: var(--c-accent-1);
+  --mdc-checkbox-unselected-hover-icon-color: var(--c-accent-1);
+  --mdc-checkbox-unselected-pressed-icon-color: var(--c-accent-1);
+
+  --mdc-checkbox-selected-focus-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-hover-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-pressed-icon-color: var(--c-accent-1);
+}
+
+/* 2) RED FLAG checkbox column = RED (unchecked + checked) */
+:host ::ng-deep .opt-red.mat-mdc-checkbox {
+  --mdc-checkbox-unselected-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-checkmark-color: #fff;
+
+  --mdc-checkbox-state-layer-color: var(--c-warn);
+
+  /* FIX: da ostane crven i kad je checked/hover/focus */
+  --mdc-checkbox-unselected-focus-icon-color: var(--c-warn);
+  --mdc-checkbox-unselected-hover-icon-color: var(--c-warn);
+  --mdc-checkbox-unselected-pressed-icon-color: var(--c-warn);
+
+  --mdc-checkbox-selected-focus-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-hover-icon-color: var(--c-warn);
+  --mdc-checkbox-selected-pressed-icon-color: var(--c-warn);
+}
+
+/* ============================
+   ✅ "SMIRI" mat-form-field (underline look)
+   ============================ */
+:host ::ng-deep .mat-mdc-form-field {
+  width: 100%;
+}
+
+/* malo nizi input */
+:host ::ng-deep .mat-mdc-form-field-infix {
+  padding-top: 6px !important;
+  padding-bottom: 6px !important;
+  min-height: 32px;
+}
+
+/* underline neutral */
+:host ::ng-deep .mdc-line-ripple::before {
+  border-bottom-color: rgba(0, 0, 0, 0.45) !important;
+  opacity: 0.75;
+}

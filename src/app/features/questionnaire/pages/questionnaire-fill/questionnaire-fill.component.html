@@ -1,0 +1,127 @@
+<div class="fill-page" *ngIf="currentQuestion() as q">
+  <div class="fill-card">
+
+    <div class="fill-inner">
+
+      <!-- PANEL 1: pitanje + odgovori -->
+      <div class="fill-panel">
+        <div class="fill-head">
+          <span class="q-code">{{ q.code }}</span>
+          <div class="q-title">{{ q.text.trim() ? q.text : 'Question' }}</div>
+        </div>
+
+        <div class="fill-body" [ngSwitch]="q.type">
+
+          <!-- CHECKBOXES -->
+          <ng-container *ngSwitchCase="'checkboxes'">
+            <div class="ans-list">
+              <mat-checkbox
+                class="ans-item"
+                *ngFor="let o of currentOptions(); trackBy: trackById"
+                [checked]="isChecked(o.id)"
+                (change)="toggleMulti(o.id, $any($event.checked))"
+              >
+                <span class="ans-text">{{ o.text }}</span>
+              </mat-checkbox>
+            </div>
+          </ng-container>
+
+          <!-- RADIO -->
+          <ng-container *ngSwitchCase="'multiple_choice'">
+            <mat-radio-group
+              class="ans-list"
+              [value]="singleOptionId()"
+              (change)="setSingle($any($event.value))"
+            >
+              <mat-radio-button
+                class="ans-item"
+                *ngFor="let o of currentOptions(); trackBy: trackById"
+                [value]="o.id"
+              >
+                <span class="ans-text">{{ o.text }}</span>
+              </mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+
+          <!-- DROPDOWN -->
+          <ng-container *ngSwitchCase="'dropdown'">
+            <mat-radio-group
+              class="ans-list"
+              [value]="singleOptionId()"
+              (change)="setSingle($any($event.value))"
+            >
+              <mat-radio-button
+                class="ans-item"
+                *ngFor="let o of currentOptions(); trackBy: trackById"
+                [value]="o.id"
+              >
+                <span class="ans-text">{{ o.text }}</span>
+              </mat-radio-button>
+            </mat-radio-group>
+          </ng-container>
+
+          <!-- SHORT -->
+          <ng-container *ngSwitchCase="'short_text'">
+            <input
+              class="text-underline"
+              [value]="textValue()"
+              (input)="setText($any($event.target).value)"
+              placeholder="Odgovor"
+            />
+          </ng-container>
+
+          <!-- LONG -->
+          <ng-container *ngSwitchCase="'long_text'">
+            <textarea
+              class="text-underline"
+              rows="3"
+              [value]="textValue()"
+              (input)="setText($any($event.target).value)"
+              placeholder="Odgovor"
+            ></textarea>
+          </ng-container>
+
+          <!-- DATE -->
+          <ng-container *ngSwitchCase="'date'">
+            <input
+              class="text-underline"
+              type="date"
+              [value]="dateValue()"
+              (input)="setDate($any($event.target).value)"
+            />
+          </ng-container>
+
+          <ng-container *ngSwitchDefault>
+            <div class="hint">Ovaj tip jos nije podrzan u ispunjavanju.</div>
+          </ng-container>
+
+        </div>
+      </div>
+
+      <!-- PANEL 2: akcije (odvojeni div kao na figmi) -->
+      <div class="fill-actions">
+        <button
+          mat-flat-button
+          type="button"
+          class="btn-prev"
+          (click)="prev()"
+          [disabled]="isFirst()"
+        >
+          NAZAD
+        </button>
+
+        <button
+          mat-flat-button
+          type="button"
+          class="btn-next"
+          (click)="next()"
+          [disabled]="isLast() || !canGoNext()"
+        >
+          DALJE
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>

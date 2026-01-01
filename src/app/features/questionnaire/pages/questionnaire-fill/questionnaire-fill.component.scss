@@ -1,0 +1,129 @@
+:host { display: block; }
+
+.fill-page {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+
+.fill-card {
+  width: 100%;
+  max-width: 1420px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.06);
+  overflow: hidden;
+}
+
+/* ✅ ovaj wrapper daje identicno uvlačenje i panelu i footeru */
+.fill-inner {
+  padding: 24px; /* indent kao na figmi */
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* razmak izmedju 2 panela */
+}
+
+/* PANEL 1 (pitanje + odgovori) */
+.fill-panel {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+/* HEADER kao section-panel */
+.fill-head {
+  background: var(--c-base-2);
+  padding: 14px 18px;
+
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  /* ❌ makni margin: 5% (to ti je kvarilo sve) */
+}
+
+.q-code {
+  background: var(--c-accent-1);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 13px;
+  width: fit-content;
+}
+
+.q-title {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--c-text-dark);
+}
+
+.fill-body {
+  padding: 18px;
+}
+
+.ans-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.ans-item {
+  font-size: 14px;
+}
+
+.ans-text {
+  color: var(--c-text-dark);
+}
+
+.text-underline {
+  width: 100%;
+  max-width: 820px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  padding: 10px 0 6px;
+  font-size: 14px;
+  border-bottom: 2px solid rgba(0,0,0,.45);
+  color: var(--c-text-dark);
+  resize: none;
+}
+
+.hint {
+  color: var(--c-text-medium);
+  font-size: 13px;
+  padding: 8px 0;
+}
+
+/* PANEL 2 (akcije) */
+.fill-actions {
+  border-radius: 10px;
+  padding: 14px 18px;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-next {
+  background: var(--c-accent-1) !important;
+  color: #fff !important;
+  border-radius: 5px;
+}
+.btn-prev{
+  background: var(--c-base-darker) !important;
+  border-radius: 5px;
+}
+
+/* ✅ checkbox/radio uvijek accent-1 */
+:host ::ng-deep .mat-mdc-checkbox {
+  --mdc-checkbox-selected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-unselected-icon-color: var(--c-accent-1);
+  --mdc-checkbox-selected-checkmark-color: #fff;
+  --mdc-checkbox-state-layer-color: var(--c-accent-1);
+}
+
+:host ::ng-deep .mat-mdc-radio-button {
+  --mdc-radio-selected-icon-color: var(--c-accent-1);
+  --mdc-radio-unselected-icon-color: var(--c-accent-1);
+  --mat-radio-ripple-color: var(--c-accent-1);
+}

@@ -1,0 +1,16 @@
+<div class="shell">
+  <app-navbar></app-navbar>
+
+  <div class="body">
+    <app-sidebar
+      class="sidebar"
+      [class.hidden]="!shell.menuOpen()"
+      [user]="user"
+      [navItems]="navItems">
+    </app-sidebar>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+</div>

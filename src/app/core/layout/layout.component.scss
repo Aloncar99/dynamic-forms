@@ -1,0 +1,18 @@
+.shell {
+  min-height: 100vh;
+  background: var(--c-base);
+}
+
+.body {
+  display: flex;
+  min-height: calc(100vh - 64px); /* puna visina ispod topbara */
+}
+
+.content {
+  flex: 1;
+  min-height: calc(100vh - 64px);
+  background: var(--c-base);
+}
+
+.sidebar.hidden { display: none; } // ili transform za animaciju
+

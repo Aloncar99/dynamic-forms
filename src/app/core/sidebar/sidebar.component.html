@@ -1,0 +1,23 @@
+<aside class="sidebar">
+  <div class="profile">
+    <div class="avatar">{{ user.initials }}</div>
+
+    <div class="profile-text">
+      <div class="name">{{ user.name }}</div>
+      <div class="role">{{ user.role }}</div>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <a
+      class="nav-item"
+      *ngFor="let item of navItems"
+      [routerLink]="item.link"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+    >
+      <mat-icon class="nav-ic">{{ item.icon }}</mat-icon>
+      <span class="nav-label">{{ item.label }}</span>
+    </a>
+  </nav>
+</aside>

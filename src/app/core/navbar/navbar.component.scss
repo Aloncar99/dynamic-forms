@@ -1,0 +1,58 @@
+.topbar {
+  height: var(--topbar-h);
+  padding: 0 22px;
+  background: var(--c-primary);
+  color: var(--c-text-light);
+  box-shadow: var(--shadow-1);
+}
+
+.spacer { flex: 1; }
+
+.menu-btn {
+  width: var(--tap);
+  height: var(--tap);
+  display: grid;
+  place-items: center;
+  color: var(--c-text-light);
+}
+
+.right {
+  display: flex;
+  align-items: center;
+}
+
+.icon-btn {
+  width: var(--tap);
+  height: var(--tap);
+  display: grid;
+  place-items: center;
+  color: var(--c-text-light);
+}
+
+.lang-btn {
+  width: var(--tap);
+  height: var(--tap);
+  display: grid;
+  place-items: center;
+
+  color: var(--c-text-light);
+  font-weight: 500;
+  font-size: 20px;
+  letter-spacing: 0.4px;
+  user-select: none;
+}
+
+/* ujednači “masu” ikona */
+:host ::ng-deep .menu-btn .mat-icon,
+:host ::ng-deep .icon-btn .mat-icon {
+  width: var(--icon);
+  height: var(--icon);
+  font-size: var(--icon);
+  line-height: var(--icon);
+}
+
+.menu-open-icon {
+  width: var(--icon);
+  height: var(--icon);
+  display: block;
+}

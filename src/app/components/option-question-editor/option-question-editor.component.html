@@ -1,0 +1,142 @@
+<ng-container *ngIf="question() as q">
+  <div class="q-admin-card">
+
+    <!-- rows -->
+    <div class="opt-row" *ngFor="let o of opts(); trackBy: trackById">
+      <mat-checkbox class="opt-check"></mat-checkbox>
+
+      <mat-form-field appearance="fill" class="opt-text">
+        <input
+          matInput
+          [value]="o.text"
+          (input)="onOptionTextChange(o.id, $any($event.target).value)"
+          placeholder="Option"
+        />
+      </mat-form-field>
+
+      <mat-checkbox
+        class="opt-red"
+        [checked]="o.redFlag"
+        (change)="onOptionRedFlagChange(o.id, $any($event.checked))"
+      >
+        Red flag
+      </mat-checkbox>
+
+      <mat-form-field appearance="fill" class="opt-comment">
+        <input
+          matInput
+          [value]="o.comment"
+          (input)="onOptionCommentChange(o.id, $any($event.target).value)"
+          placeholder="Comment"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="opt-points">
+        <input
+          matInput
+          type="number"
+          [value]="o.points ?? ''"
+          (input)="onOptionPointsChange(o.id, $any($event.target).value)"
+          placeholder="Points"
+        />
+      </mat-form-field>
+
+      <button
+        mat-icon-button
+        type="button"
+        class="opt-trash"
+        (click)="removeOption(o.id)"
+        aria-label="Delete option"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <div class="empty-hint" *ngIf="opts().length === 0">
+      Nema opcija. Dodaj prvu opciju.
+    </div>
+
+    <button class="add-option" mat-button type="button" (click)="addOption()">
+      <mat-icon class="add-ic">add_circle</mat-icon>
+      Add option
+    </button>
+
+    <!-- logic -->
+    <div class="logic">
+      <div class="logic-title">Conditional logic</div>
+
+      <div class="logic-row" *ngFor="let r of q.logic; let ri = index; trackBy: trackByIndex">
+        <span class="logic-label">If</span>
+
+        <mat-form-field appearance="fill" class="logic-field">
+          <mat-select [value]="r.whenOptionId" (selectionChange)="onLogicWhenOptionChange(ri, $any($event.value))">
+            <mat-option [value]="''">Select option</mat-option>
+            <mat-option *ngFor="let o of opts(); trackBy: trackById" [value]="o.id">
+              {{ o.text }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <span class="logic-label">then open</span>
+
+        <mat-form-field appearance="fill" class="logic-field small">
+          <mat-select [value]="r.jumpTo.kind" (selectionChange)="onLogicJumpKindChange(ri, $any($event.value))">
+            <mat-option value="question">Question</mat-option>
+            <mat-option value="section">Section</mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill" class="logic-field">
+          <mat-select [value]="r.jumpTo.targetId" (selectionChange)="onLogicTargetChange(ri, $any($event.value))">
+            <mat-option [value]="''">Select</mat-option>
+
+            <ng-container *ngIf="r.jumpTo.kind === 'question'; else sectionTargetsTpl">
+              <mat-option *ngFor="let tq of allQuestionsForJump(); trackBy: trackById" [value]="tq.id">
+                {{ tq.label }}
+              </mat-option>
+            </ng-container>
+
+            <ng-template #sectionTargetsTpl>
+              <mat-option *ngFor="let ts of allSectionsForJump(); trackBy: trackById" [value]="ts.id">
+                {{ ts.label }}
+              </mat-option>
+            </ng-template>
+          </mat-select>
+        </mat-form-field>
+
+        <button mat-icon-button class="logic-trash" type="button" (click)="removeLogicRule(ri)" aria-label="Delete rule">
+          <mat-icon>delete</mat-icon>
+        </button>
+
+        <!-- ✅ + samo na zadnjem rule-u, odmah do kantice -->
+        <button
+          *ngIf="ri === q.logic.length - 1"
+          mat-mini-fab
+          class="logic-add"
+          type="button"
+          (click)="addLogicRule()"
+          [disabled]="opts().length === 0"
+          aria-label="Add rule"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+
+      <!-- ✅ empty state kad nema nijednog rule-a -->
+      <div class="logic-empty" *ngIf="q.logic.length === 0">
+        <button
+          mat-mini-fab
+          class="logic-add"
+          type="button"
+          (click)="addLogicRule()"
+          [disabled]="opts().length === 0"
+          aria-label="Add rule"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+
+  </div>
+</ng-container>

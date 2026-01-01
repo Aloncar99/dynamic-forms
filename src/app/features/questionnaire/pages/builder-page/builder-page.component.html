@@ -1,0 +1,24 @@
+<div class="page">
+  <div class="container">
+    <div class="breadcrumbs">
+      Naslovna &gt; Analitika i detekcija &gt; Upitnik
+    </div>
+
+    <div class="card">
+      <button mat-fab class="play-fab" aria-label="Play" (click)="onPlay()">
+        <mat-icon>play_arrow</mat-icon>
+      </button>
+
+
+      <mat-accordion class="sections" multi>
+        <app-section-panel
+          *ngFor="let s of sections(); trackBy: trackById"
+          [sectionId]="s.id"
+        />
+      </mat-accordion>
+    </div>
+  </div>
+</div>
+
+<app-debug-panel [enabled]="debugEnabled"></app-debug-panel>
+
