@@ -7,7 +7,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { QuestionnaireStore } from '../../data-access/questionnaire.store';
-import { Option, Question } from '../../../../shared/models/questionnaire.model';
+import {LogicRule, Option, Question} from '../../../../shared/models/questionnaire.model';
 
 type AnswerValue =
   | { kind: 'text'; value: string }
@@ -177,13 +177,25 @@ export class QuestionnaireFillComponent {
    */
   private findJumpTarget(question: Question, answer: AnswerValue): number | null {
     if (!question.logic || question.logic.length === 0) return null;
-    if (answer.kind !== 'single') return null;
 
-    const matchingRule = question.logic.find((rule) => rule.whenOptionId === answer.optionId);
+    // NEW: podrzi single i multi (checkboxes)
+    let matchingRule: LogicRule | undefined;
+
+    if (answer.kind === 'single') {
+      matchingRule = question.logic.find((rule) => rule.whenOptionId === answer.optionId);
+    } else if (answer.kind === 'multi') {
+      // NEW: ako je vise checkboxeva cekirano, uzmi PRVO pravilo (po redoslijedu u logic)
+      // koje se poklopi sa bilo kojim od cekiranih optionIds
+      const selected = new Set(answer.optionIds); // pretpostavka: optionIds: string[]
+      matchingRule = question.logic.find((rule) => selected.has(rule.whenOptionId));
+    } else {
+      return null; // text/date/etc.
+    }
+
     if (!matchingRule || !matchingRule.jumpTo.targetId) return null;
 
     const targetId = matchingRule.jumpTo.targetId;
-    const questionIds = this.questionIds();
+    const questionIds = this.orderedQuestionIds();
 
     if (matchingRule.jumpTo.kind === 'question') {
       const targetIndex = questionIds.indexOf(targetId);
@@ -236,4 +248,9 @@ export class QuestionnaireFillComponent {
     const a = this.answers()[q.id];
     return a?.kind === 'multi' ? a.optionIds.includes(optionId) : false;
   }
+
+  private orderedQuestionIds(): string[] {
+    return this.qs.sections().flatMap(s => s.questionIds);
+  }
+
 }
